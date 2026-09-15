@@ -1,0 +1,40 @@
+{
+  "exam_name": "AWS Certified Solutions Architect - Associate (SAA-C03)",
+  "start_date": "2026-09-15",
+  "target_exam_date": "2026-09-28",
+  "flex_exam_date": "2026-10-12",
+  "schedule": {
+    "morning_drill": "06:00",
+    "micro_recall": "12:30",
+    "study_block_1": "17:30",
+    "study_block_2": "20:00",
+    "presleep_micro": "21:00",
+    "mock_day": "sunday"
+  },
+  "session_caps": {
+    "max_cards_per_session": 25,
+    "max_scenario_questions": 6,
+    "max_minutes": 25,
+    "presleep_max_cards": 10
+  },
+  "checkpoints": {
+    "day_4_min_pct": 65,
+    "day_8_sit_pct": 75,
+    "day_8_extend_floor_pct": 70
+  },
+  "leitner": {
+    "base_intervals_days": [0, 1, 2, 4, 8],
+    "compressed_multipliers": [0, 0.5, 0.75, 1, 1.5],
+    "max_interval_days": 5
+  },
+  "mock_sources": ["udemy practice tests", "ai-generated question sets"],
+  "ai_question_workflow": {
+    "authoring_slot": "evening block 2",
+    "rules": [
+      "Generate 5-10 scenario questions per new topic against the exam task statements",
+      "Vet every AI answer yourself before adding to decks - wrong answers poison the scheduler",
+      "Tag each question with domain and services tested",
+      "Include explanations for right AND wrong options"
+    ]
+  }
+}

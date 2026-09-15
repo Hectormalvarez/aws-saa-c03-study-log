@@ -1,0 +1,12 @@
+# Local state - keep private
+*.session
+practice/answers/*.md
+progress/log.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS/editor
+.DS_Store
