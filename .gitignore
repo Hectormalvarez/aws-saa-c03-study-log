@@ -1,12 +1,9 @@
-# Local state - keep private
+# Local state only
 *.session
-practice/answers/*.md
-progress/log.jsonl
-
-# Python
 __pycache__/
 *.pyc
 .venv/
-
-# OS/editor
 .DS_Store
+
+# Everything study-related is committed — the repo is the system of record:
+# prescriptions, answers, mocks, session log, attempts all stay in git.
