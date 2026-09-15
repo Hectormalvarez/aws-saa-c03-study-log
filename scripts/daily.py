@@ -4,15 +4,60 @@ Usage:
   python3 scripts/daily.py           # morning drill: due cards + scenarios + design prompt
   python3 scripts/daily.py --micro   # pre-sleep: recall TODAY's cards only (<=10)
   python3 scripts/daily.py --prompt  # just give a free-recall design prompt
+  python3 scripts/daily.py --plan    # miss-cluster analysis for the prescription
 """
 import sys
 import os
+import json
 import random
 import argparse
-import glob
-from datetime import date
+import re
+from datetime import date, timedelta
 
 import common as C
+
+
+def plan():
+    cfg = C.load_config()
+    cards = C.load_cards()
+    print(f"=== PRESCRIPTION INPUTS — {date.today().isoformat()} — "
+          f"{C.days_to_exam(cfg)} days to exam ===")
+    by_domain = {}
+    for c in cards:
+        d = by_domain.setdefault(c["domain"], {"requeued": [], "learning": [], "unseen": 0})
+        if c["reps"] == 0:
+            d["unseen"] += 1
+        elif c["streak"] == 0:
+            d["requeued"].append(c["q"])
+        else:
+            d["learning"].append((c["id"], c["box"]))
+    print("\n-- Card state by domain --")
+    for dom in sorted(by_domain):
+        d = by_domain[dom]
+        line = f"{C.DOMAIN_LABELS.get(dom, dom)}: {len(d['requeued'])} requeued, " \
+               f"{len(d['learning'])} in rotation, {d['unseen']} unseen"
+        print(line)
+        for q in d["requeued"]:
+            print(f"   ✘ {q}")
+    misses = []
+    try:
+        text = open(C.WRONG_PATH).read()
+        cutoff = (date.today() - timedelta(days=2)).isoformat()
+        misses = re.findall(rf"## ({cutoff}|{cutoff}|{date.today().isoformat()})\S* — scenario `([^`]+)`", text)
+        scen = re.findall(r"## \d{4}-\d{2}-\d{2} — scenario `([^`]+)`", text)
+        if scen:
+            print(f"\n-- Scenario misses logged: {len(scen)} (ids: {', '.join(scen)}) --")
+    except FileNotFoundError:
+        print("\n-- No scenario misses logged --")
+    attempts = []
+    if os.path.exists(C.ATTEMPTS_PATH):
+        with open(C.ATTEMPTS_PATH) as f:
+            attempts = json.load(f)
+    if attempts:
+        print("\n-- Latest mock:", attempts[-1].get("overall_pct", "?"), "% overall --")
+    print("\nTonight's mechanical priorities: requeued cards above + weakest domain by "
+          "requeued count + any missed scenario topics.")
+
 
 
 def scenario_q(q, cfg):
@@ -58,7 +103,7 @@ def do_cards(cards, cfg, limit):
     n = correct = 0
     for card in due:
         print(f"\n[{card['domain']}] {card['q']}")
-        input("  recall from memory, then Enter... ")
+        C.safe_input("  recall from memory, then Enter... ")
         print(f"  A: {card['a']}")
         g = C.safe_input("  right? [y/n] ").strip().lower()
         ok = g == "y"
@@ -90,9 +135,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--micro", action="store_true", help="pre-sleep recall of today's cards")
     ap.add_argument("--prompt", action="store_true", help="print today's design prompt only")
+    ap.add_argument("--plan", action="store_true", help="miss-cluster analysis for tonight's prescription")
     args = ap.parse_args()
     cfg = C.load_config()
     cards = C.load_cards()
+
+    if args.plan:
+        plan()
+        return
 
     if args.prompt:
         print(design_prompts())
@@ -110,7 +160,7 @@ def main():
         print(f"Pre-sleep recall: {len(touched)} cards from today.")
         for card in touched:
             print(f"\n{card['q']}")
-            input("  recall, then Enter... ")
+            C.safe_input("  recall, then Enter... ")
             print(f"  A: {card['a']}")
             g = C.safe_input("  right? [y/n] ").strip().lower()
             ok = g == "y"

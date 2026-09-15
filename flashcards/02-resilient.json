@@ -1,0 +1,59 @@
+{
+  "cards": [
+    {
+      "id": "res-001",
+      "domain": "02-resilient",
+      "q": "ALB vs NLB — pick for which cases?",
+      "a": "ALB: L7 HTTP/S/gRPC, path/host routing, WAF, sticky sessions. NLB: L4 TCP/TLS/UDP, extreme perf, static/Elastic IP, preserves client IP, no WAF.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "res-002",
+      "domain": "02-resilient",
+      "q": "SQS vs SNS vs EventBridge — one line each?",
+      "a": "SQS: point-to-point queue, pull, decoupling/buffer. SNS: pub/sub fan-out push. EventBridge: event bus w/ rule filtering, SaaS+AWS sources, many targets.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "res-003",
+      "domain": "02-resilient",
+      "q": "RDS Multi-AZ vs Read Replicas — availability or performance?",
+      "a": "Multi-AZ: sync standby other AZ, HA failover only, standby not readable. Read Replicas: async, scale reads, promotable, cross-region for DR.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "res-004",
+      "domain": "02-resilient",
+      "q": "4 DR strategies in increasing cost/complexity?",
+      "a": "Backup & Restore -> Pilot Light (core replicated, minimal running) -> Warm Standby (scaled-down full copy) -> Multi-Site Active/Active (full scale both regions).",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "res-005",
+      "domain": "02-resilient",
+      "q": "ASG target tracking vs step vs scheduled scaling?",
+      "a": "Target tracking: keep metric at target, simplest, preferred. Step: scale in bands around alarm. Scheduled: known predictable load patterns.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    }
+  ]
+}

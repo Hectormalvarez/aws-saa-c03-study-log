@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "id": "sec-001",
+      "domain": "01-secure",
+      "q": "Stateful vs stateless: Security Group or NACL?",
+      "a": "Security Group = stateful (return traffic auto-allowed), instance level. NACL = stateless (must allow return traffic both ways), subnet level, numbered rules evaluated ascending.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "sec-002",
+      "domain": "01-secure",
+      "q": "S3 SSE-S3 vs SSE-KMS vs SSE-C — who holds the key?",
+      "a": "SSE-S3: AWS-managed keys, no KMS audit. SSE-KMS: KMS key w/ key policy + CloudTrail audit, per-request cost. SSE-C: you supply key per request over HTTPS, AWS stores nothing.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "sec-003",
+      "domain": "01-secure",
+      "q": "STS AssumeRole vs AssumeRoleWithWebIdentity?",
+      "a": "AssumeRole: existing identity or cross-account assumes role, temp creds. AssumeRoleWithWebIdentity: federate external OIDC IdP (Cognito, Google) without AWS credentials.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "sec-004",
+      "domain": "01-secure",
+      "q": "Secrets Manager vs SSM Parameter Store?",
+      "a": "Secrets Manager: native auto-rotation (RDS etc.), higher $/secret, cross-region replication. Parameter Store: cheaper, SecureString w/ KMS, rotation needs custom logic.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    }
+  ]
+}

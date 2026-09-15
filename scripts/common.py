@@ -1,10 +1,11 @@
 """Shared helpers for aws-saa scripts. Stdlib only."""
+import glob
 import json
 import os
 from datetime import date, datetime, timedelta
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CARDS_PATH = os.path.join(ROOT, "flashcards", "cards.json")
+FLASHCARDS_DIR = os.path.join(ROOT, "flashcards")
 CONFIG_PATH = os.path.join(ROOT, "config.json")
 LOG_PATH = os.path.join(ROOT, "progress", "log.jsonl")
 ATTEMPTS_PATH = os.path.join(ROOT, "progress", "attempts.json")
@@ -24,13 +25,23 @@ def load_config():
 
 
 def load_cards():
-    with open(CARDS_PATH) as f:
-        return json.load(f)["cards"]
+    """Merge all per-domain deck files (flashcards/<domain>.json)."""
+    out = []
+    for path in sorted(glob.glob(os.path.join(FLASHCARDS_DIR, "*.json"))):
+        with open(path) as f:
+            out.extend(json.load(f)["cards"])
+    return out
 
 
 def save_cards(cards):
-    with open(CARDS_PATH, "w") as f:
-        json.dump({"cards": cards}, f, indent=2, ensure_ascii=False)
+    """Write cards back to their per-domain deck files."""
+    by_domain = {}
+    for card in cards:
+        by_domain.setdefault(card["domain"], []).append(card)
+    for domain, domain_cards in by_domain.items():
+        path = os.path.join(FLASHCARDS_DIR, f"{domain}.json")
+        with open(path, "w") as f:
+            json.dump({"cards": domain_cards}, f, indent=2, ensure_ascii=False)
 
 
 def load_domain_questions():

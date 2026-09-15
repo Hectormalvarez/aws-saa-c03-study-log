@@ -1,0 +1,48 @@
+{
+  "cards": [
+    {
+      "id": "cost-001",
+      "domain": "04-cost-optimized",
+      "q": "S3 lifecycle minimum-days rules?",
+      "a": "Std-IA min 30d, Glacier Instant Retrieval min 90d, Deep Archive min 180d. Early transition still bills the full minimum.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "cost-002",
+      "domain": "04-cost-optimized",
+      "q": "Spot instances — right vs wrong workloads?",
+      "a": "Right: stateless, fault-tolerant, batch, distributed, ASG mixed instances. Wrong: stateful DBs, SPOFs, can't survive 2-min interruption notice.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "cost-003",
+      "domain": "04-cost-optimized",
+      "q": "Savings Plans vs Reserved Instances?",
+      "a": "Savings Plans: commit $/hr, flexible across family/size/OS/region. RIs: commit to instance attributes + capacity reservation option. Both 1-3yr, ~30-72% off.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "cost-004",
+      "domain": "04-cost-optimized",
+      "q": "When is Aurora Serverless v2 the exam answer?",
+      "a": "Unpredictable/infrequent DB load, dev/test, multi-tenant SaaS, no capacity planning — fine-grained scaling (vs v1's on/off ACUs).",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    }
+  ]
+}

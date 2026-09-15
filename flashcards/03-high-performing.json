@@ -1,0 +1,59 @@
+{
+  "cards": [
+    {
+      "id": "hp-001",
+      "domain": "03-high-performing",
+      "q": "EBS gp3 vs gp2 — the upgrade math?",
+      "a": "gp3: 3000 IOPS + 125 MB/s baseline free, provision to 16k IOPS/1000 MB/s, 20% cheaper. gp2: IOPS tied to size (3 IOPS/GB) + burst buckets.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "hp-002",
+      "domain": "03-high-performing",
+      "q": "Lambda hard limits to memorize?",
+      "a": "15 min max run, 10,240 MB memory, 1000 default concurrency, /tmp 10,240 MB, zip 50MB compressed, container image 10GB.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "hp-003",
+      "domain": "03-high-performing",
+      "q": "DynamoDB on-demand vs provisioned — when each?",
+      "a": "On-demand: unpredictable/spiky/unknown load, pay per request. Provisioned + auto scaling: predictable load, cheaper at scale; reserved capacity for very steady.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "hp-004",
+      "domain": "03-high-performing",
+      "q": "CloudFront vs Global Accelerator?",
+      "a": "CloudFront: L7 HTTP(S) edge caching, signed URLs, OAC. Global Accelerator: any TCP/UDP, no caching, static anycast IPs, healthy regional routing over AWS backbone.",
+      "box": 1,
+      "due": "2026-09-16",
+      "streak": 1,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    },
+    {
+      "id": "hp-005",
+      "domain": "03-high-performing",
+      "q": "Aurora read replica limits vs RDS?",
+      "a": "Aurora: up to 15 replicas, shared storage (lag ~0), fast promotion. RDS: 5 replicas (MySQL/MariaDB/Postgres), async, lag possible.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 1,
+      "last_seen": "2026-09-15"
+    }
+  ]
+}
