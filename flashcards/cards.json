@@ -1,0 +1,184 @@
+{
+  "cards": [
+    {
+      "id": "sec-001",
+      "domain": "01-secure",
+      "q": "Stateful vs stateless: Security Group or NACL?",
+      "a": "Security Group = stateful (return traffic auto-allowed), instance level. NACL = stateless (must allow return traffic both ways), subnet level, numbered rules evaluated ascending.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "sec-002",
+      "domain": "01-secure",
+      "q": "S3 SSE-S3 vs SSE-KMS vs SSE-C — who holds the key?",
+      "a": "SSE-S3: AWS-managed keys, no KMS audit. SSE-KMS: KMS key w/ key policy + CloudTrail audit, per-request cost. SSE-C: you supply key per request over HTTPS, AWS stores nothing.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "sec-003",
+      "domain": "01-secure",
+      "q": "STS AssumeRole vs AssumeRoleWithWebIdentity?",
+      "a": "AssumeRole: existing identity or cross-account assumes role, temp creds. AssumeRoleWithWebIdentity: federate external OIDC IdP (Cognito, Google) without AWS credentials.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "sec-004",
+      "domain": "01-secure",
+      "q": "Secrets Manager vs SSM Parameter Store?",
+      "a": "Secrets Manager: native auto-rotation (RDS etc.), higher $/secret, cross-region replication. Parameter Store: cheaper, SecureString w/ KMS, rotation needs custom logic.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "res-001",
+      "domain": "02-resilient",
+      "q": "ALB vs NLB — pick for which cases?",
+      "a": "ALB: L7 HTTP/S/gRPC, path/host routing, WAF, sticky sessions. NLB: L4 TCP/TLS/UDP, extreme perf, static/Elastic IP, preserves client IP, no WAF.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "res-002",
+      "domain": "02-resilient",
+      "q": "SQS vs SNS vs EventBridge — one line each?",
+      "a": "SQS: point-to-point queue, pull, decoupling/buffer. SNS: pub/sub fan-out push. EventBridge: event bus w/ rule filtering, SaaS+AWS sources, many targets.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "res-003",
+      "domain": "02-resilient",
+      "q": "RDS Multi-AZ vs Read Replicas — availability or performance?",
+      "a": "Multi-AZ: sync standby other AZ, HA failover only, standby not readable. Read Replicas: async, scale reads, promotable, cross-region for DR.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "res-004",
+      "domain": "02-resilient",
+      "q": "4 DR strategies in increasing cost/complexity?",
+      "a": "Backup & Restore -> Pilot Light (core replicated, minimal running) -> Warm Standby (scaled-down full copy) -> Multi-Site Active/Active (full scale both regions).",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "res-005",
+      "domain": "02-resilient",
+      "q": "ASG target tracking vs step vs scheduled scaling?",
+      "a": "Target tracking: keep metric at target, simplest, preferred. Step: scale in bands around alarm. Scheduled: known predictable load patterns.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "hp-001",
+      "domain": "03-high-performing",
+      "q": "EBS gp3 vs gp2 — the upgrade math?",
+      "a": "gp3: 3000 IOPS + 125 MB/s baseline free, provision to 16k IOPS/1000 MB/s, 20% cheaper. gp2: IOPS tied to size (3 IOPS/GB) + burst buckets.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "hp-002",
+      "domain": "03-high-performing",
+      "q": "Lambda hard limits to memorize?",
+      "a": "15 min max run, 10,240 MB memory, 1000 default concurrency, /tmp 10,240 MB, zip 50MB compressed, container image 10GB.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "hp-003",
+      "domain": "03-high-performing",
+      "q": "DynamoDB on-demand vs provisioned — when each?",
+      "a": "On-demand: unpredictable/spiky/unknown load, pay per request. Provisioned + auto scaling: predictable load, cheaper at scale; reserved capacity for very steady.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "hp-004",
+      "domain": "03-high-performing",
+      "q": "CloudFront vs Global Accelerator?",
+      "a": "CloudFront: L7 HTTP(S) edge caching, signed URLs, OAC. Global Accelerator: any TCP/UDP, no caching, static anycast IPs, healthy regional routing over AWS backbone.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "hp-005",
+      "domain": "03-high-performing",
+      "q": "Aurora read replica limits vs RDS?",
+      "a": "Aurora: up to 15 replicas, shared storage (lag ~0), fast promotion. RDS: 5 replicas (MySQL/MariaDB/Postgres), async, lag possible.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "cost-001",
+      "domain": "04-cost-optimized",
+      "q": "S3 lifecycle minimum-days rules?",
+      "a": "Std-IA min 30d, Glacier Instant Retrieval min 90d, Deep Archive min 180d. Early transition still bills the full minimum.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "cost-002",
+      "domain": "04-cost-optimized",
+      "q": "Spot instances — right vs wrong workloads?",
+      "a": "Right: stateless, fault-tolerant, batch, distributed, ASG mixed instances. Wrong: stateful DBs, SPOFs, can't survive 2-min interruption notice.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "cost-003",
+      "domain": "04-cost-optimized",
+      "q": "Savings Plans vs Reserved Instances?",
+      "a": "Savings Plans: commit $/hr, flexible across family/size/OS/region. RIs: commit to instance attributes + capacity reservation option. Both 1-3yr, ~30-72% off.",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    },
+    {
+      "id": "cost-004",
+      "domain": "04-cost-optimized",
+      "q": "When is Aurora Serverless v2 the exam answer?",
+      "a": "Unpredictable/infrequent DB load, dev/test, multi-tenant SaaS, no capacity planning — fine-grained scaling (vs v1's on/off ACUs).",
+      "box": 0,
+      "due": "2026-09-15",
+      "streak": 0,
+      "reps": 0
+    }
+  ]
+}
