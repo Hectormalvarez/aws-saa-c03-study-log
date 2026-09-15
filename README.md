@@ -41,10 +41,21 @@ Evening block 2: generate 5–10 scenario questions per new topic against the ex
 statements, then **vet every answer yourself before it enters a deck** — a wrong AI answer
 in a spaced-repetition system poisons the schedule. Rules live in `config.json`.
 
+## Working with Cline personas in this repo
+This repo carries `.clinerules/` from `ai-prompts/projects/study-repo/`, so the study
+skills auto-apply in Cline sessions here:
+- `/persona-drill-instructor` — run a session, check yesterday's prescription, prescribe tonight
+- `/persona-content-author` — author new questions/cards (waits at your vet gate)
+- `/persona-examiner` — checkpoint mocks, verdicts, tags
+- `/persona-exam-strategist` — reconfigure dates/structure (new certs: it scaffolds from
+  `docs/sprint-spec.md` in the skill)
+- `/study-pipeline` — the whole gated flow
+
 ## Commands
 ```bash
 python3 scripts/daily.py            # morning drill: due cards + scenarios + design prompt
 python3 scripts/daily.py --micro    # pre-sleep recall of today's material
+python3 scripts/daily.py --plan     # miss-cluster analysis for the prescription
 python3 scripts/quiz.py --stats     # per-box/per-domain accuracy
 python3 scripts/exam_log.py log     # record a mock attempt (score per domain)
 python3 scripts/exam_log.py reco    # SIT/EXTEND recommendation + weak-domain priorities
