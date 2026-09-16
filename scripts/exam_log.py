@@ -55,27 +55,36 @@ def reco():
         return
     latest = attempts[-1]
     pct = latest.get("overall_pct", 0)
-    day_n = None
     start = date.fromisoformat(cfg["start_date"])
     d = date.fromisoformat(latest["date"])
     day_n = (d - start).days + 1
     cp = cfg["checkpoints"]
+    sw = cfg.get("sit_window", {})
+    today = date.today()
     print(f"Latest attempt: day {day_n}, {pct}% overall")
-    if pct < cp["day_4_min_pct"]:
-        print(f"Below {cp['day_4_min_pct']}% — expected for first mocks. Keep going; "
-              "prioritize weakest domains tonight.")
-    if day_n is not None and 6 <= day_n <= 10:
-        if pct >= cp["day_8_sit_pct"]:
-            print(f"VERDICT: SIT — {pct}% >= {cp['day_8_sit_pct']}%. Final days: "
-                  "two more mocks + weak-domain drills.")
-        elif pct < cp["day_8_extend_floor_pct"]:
-            print(f"VERDICT: EXTEND — {pct}% < {cp['day_8_extend_floor_pct']}%. "
-                  f"Move exam to {cfg['flex_exam_date']}: stretch spacing, second pass, 3 more mocks.")
+    first = date.fromisoformat(cp["first_gate_date"])
+    decision = date.fromisoformat(cp["decision_date"])
+    if today < first:
+        print(f"First checkpoint is {cp['first_gate_date']} — this mock is DIAGNOSTIC ONLY, no verdict.")
+    elif today < decision:
+        if pct >= cp["first_gate_min_pct"]:
+            print(f"VERDICT: ON TRACK — {pct}% >= {cp['first_gate_min_pct']}% gate bar ({cp['first_gate_date']}). "
+                  "May ramp deep blocks to the next phase.")
         else:
-            print(f"VERDICT: borderline ({pct}%, floor {cp['day_8_extend_floor_pct']}%, "
-                  f"sit {cp['day_8_sit_pct']}%). Re-mock in 24-48h and re-run reco.")
+            print(f"VERDICT: BEHIND — {pct}% < {cp['first_gate_min_pct']}%. Add drills before the "
+                  f"decision mock {cp['decision_date']}.")
     else:
-        print(f"VERDICT: on track, no auto-decision yet (decision window: day 6-10). Keep the daily ritual.")
+        if pct >= cp["decision_sit_pct"]:
+            print(f"VERDICT: SIT — {pct}% >= {cp['decision_sit_pct']}%. Window "
+                  f"{sw.get('earliest', '?')} → {sw.get('latest', '?')}. Final days: "
+                  "two more mocks + weak-domain drills.")
+        elif pct < cp["decision_extend_floor_pct"]:
+            print(f"VERDICT: EXTEND — {pct}% < {cp['decision_extend_floor_pct']}%. Move past "
+                  f"{sw.get('latest', '?')}: stretch spacing, second pass, 3 more mocks. "
+                  "Record reason in SPRINT.md.")
+        else:
+            print(f"VERDICT: borderline ({pct}%, floor {cp['decision_extend_floor_pct']}%, "
+                  f"sit {cp['decision_sit_pct']}%). Re-mock in 24-48h and re-run reco.")
     # weak domains
     scores = []
     for d, s in latest["domains"].items():
